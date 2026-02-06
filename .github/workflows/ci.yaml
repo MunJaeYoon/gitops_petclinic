@@ -33,14 +33,14 @@ jobs:
           IMAGE_TAG=${GITHUB_SHA::7}
           docker build -t ${{ steps.login-ecr.outputs.registry }}/ecr-nginx:$IMAGE_TAG -f ./Dockerfile.nginx .
           docker push ${{ steps.login-ecr.outputs.registry }}/ecr-nginx:$IMAGE_TAG
-          echo "NGINX_IMAGE=${{ steps.login-ecr.outputs.registry }}/ecr_nginx:$IMAGE_TAG" >> $GITHUB_ENV
+          echo "NGINX_IMAGE=${{ steps.login-ecr.outputs.registry }}/ecr-nginx:$IMAGE_TAG" >> $GITHUB_ENV
 
       # 5. Tomcat 이미지 빌드 & 푸시
       - name: Build & Push tomcat Docker image
         run: |
           IMAGE_TAG=${GITHUB_SHA::7}
           docker build -t ${{ steps.login-ecr.outputs.registry }}/ecr-tomcat:$IMAGE_TAG -f ./Dockerfile.tomcat .
-          docker push ${{ steps.login-ecr.outputs.registry }}/ecr_tomcat:$IMAGE_TAG
+          docker push ${{ steps.login-ecr.outputs.registry }}/ecr-tomcat:$IMAGE_TAG
           echo "TOMCAT_IMAGE=${{ steps.login-ecr.outputs.registry }}/ecr-tomcat:$IMAGE_TAG" >> $GITHUB_ENV
 
       # 6. Deployment YAML 업데이트
